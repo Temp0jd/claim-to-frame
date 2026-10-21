@@ -20,6 +20,8 @@ jobs:
         run: python scripts/validate_examples.py
       - name: Preflight example models
         run: python scripts/preflight_model.py examples/transformer/project.json --registry assets/model-registry.example.json
+      - name: Install FFmpeg
+        run: sudo apt-get update && sudo apt-get install -y ffmpeg
       - name: QA example video
         run: |
           python scripts/qa_video.py examples/transformer/render/final.mp4 \

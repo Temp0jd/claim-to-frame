@@ -148,6 +148,10 @@ def main() -> int:
     parser.add_argument("--json", action="store_true")
     args = parser.parse_args()
 
+    for tool in ("ffprobe", "ffmpeg"):
+        if not shutil.which(tool):
+            raise SystemExit(f"{tool} not found; install FFmpeg before running video QA")
+
     video = args.video.expanduser().resolve()
     if not video.exists():
         raise SystemExit(f"video not found: {video}")
