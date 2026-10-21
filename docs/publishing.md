@@ -5,23 +5,23 @@ This repository is a standalone skill. You can upload it as your own project.
 ## 1. Replace the placeholders
 
 - `LICENSE`: the copyright holder is currently `Tempo`; change it if needed.
-- `README.md` / `README.zh-CN.md`: repository URLs point to `Temp0jd/explain-anything`.
+- `README.md` / `README.zh-CN.md`: repository URLs point to `Temp0jd/claim-to-frame`.
 - `CITATION.cff` (if present): update author and title.
 - `NOTICE.md`: keep the attribution to vibe-knowledge-film, HyperFrames, and Manim.
 
 ## 2. Create the repository
 
 ```bash
-cd /path/to/explain-anything
+cd /path/to/claim-to-frame
 git init -b main
 git add .
-git commit -m "Initial commit: explain-anything skill"
+git commit -m "Initial commit: claim-to-frame skill"
 
 # GitHub CLI
-gh repo create Temp0jd/explain-anything --public --source=. --remote=origin --push
+gh repo create Temp0jd/claim-to-frame --public --source=. --remote=origin --push
 
 # Or create an empty repo on github.com, then:
-git remote add origin git@github.com:Temp0jd/explain-anything.git
+git remote add origin git@github.com:Temp0jd/claim-to-frame.git
 git push -u origin main
 ```
 
@@ -46,16 +46,16 @@ For Claude Code / Codex / Cursor-style skill directories:
 
 ```bash
 mkdir -p ~/.claude/skills
-cp -r ./explain-anything ~/.claude/skills/explain-anything
+cp -r ./claim-to-frame ~/.claude/skills/claim-to-frame
 ```
 
 For skills.sh-style installation:
 
 ```bash
-npx skills add Temp0jd/explain-anything
+npx skills add Temp0jd/claim-to-frame
 ```
 
-Keep the folder name `explain-anything` and the root `SKILL.md`.
+Keep the folder name `claim-to-frame` and the root `SKILL.md`.
 
 ## 5. Suggested repository settings
 

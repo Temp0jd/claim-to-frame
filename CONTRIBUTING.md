@@ -1,6 +1,6 @@
 # Contributing
 
-Thanks for improving `explain-anything`. Keep changes small, testable, and model-agnostic.
+Thanks for improving `claim-to-frame`. Keep changes small, testable, and model-agnostic.
 
 ## Before you start
 

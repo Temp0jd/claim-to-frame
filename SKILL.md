@@ -1,5 +1,5 @@
 ---
-name: explain-anything
+name: claim-to-frame
 description: |
   Turn complex material into understanding-optimized artifacts instead of plain prose: calibrated answers, STE-lite documents, diagrams, offline HTML explainers, Manim/HyperFrames videos, and 2-5 minute knowledge films. Also supports reverse mode: analyze an existing video into evidence-backed shots, then rebuild or remix its structure.
 

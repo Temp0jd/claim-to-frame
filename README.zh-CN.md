@@ -1,8 +1,8 @@
-# explain-anything
+# claim-to-frame
 
 > 把复杂材料变成“为理解而设计”的产物：流程固定，模型可换。
 
-[![Validate](https://github.com/Temp0jd/explain-anything/actions/workflows/validate.yml/badge.svg)](https://github.com/Temp0jd/explain-anything/actions/workflows/validate.yml)
+[![Validate](https://github.com/Temp0jd/claim-to-frame/actions/workflows/validate.yml/badge.svg)](https://github.com/Temp0jd/claim-to-frame/actions/workflows/validate.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![Agent Skill](https://img.shields.io/badge/agent-skill-8A2BE2.svg)](SKILL.md)
 
@@ -87,8 +87,8 @@
 ## 快速开始
 
 ```bash
-git clone https://github.com/Temp0jd/explain-anything.git
-cd explain-anything
+git clone https://github.com/Temp0jd/claim-to-frame.git
+cd claim-to-frame
 
 python scripts/scaffold.py \
   --mode forward --artifact video --renderer hyperframes \
@@ -118,14 +118,14 @@ python scripts/validate_examples.py
 
 ## 安装为技能
 
-保持文件夹名为 `explain-anything`，根目录有 `SKILL.md`。
+保持文件夹名为 `claim-to-frame`，根目录有 `SKILL.md`。
 
 ```bash
 mkdir -p ~/.claude/skills
-cp -r explain-anything ~/.claude/skills/explain-anything
+cp -r claim-to-frame ~/.claude/skills/claim-to-frame
 
 # 或
-npx skills add Temp0jd/explain-anything
+npx skills add Temp0jd/claim-to-frame
 ```
 
 ## 设计原则

@@ -1,8 +1,8 @@
-# explain-anything
+# claim-to-frame
 
 > Turn complex material into understanding-optimized artifacts — with a fixed process and swappable models.
 
-[![Validate](https://github.com/Temp0jd/explain-anything/actions/workflows/validate.yml/badge.svg)](https://github.com/Temp0jd/explain-anything/actions/workflows/validate.yml)
+[![Validate](https://github.com/Temp0jd/claim-to-frame/actions/workflows/validate.yml/badge.svg)](https://github.com/Temp0jd/claim-to-frame/actions/workflows/validate.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![Agent Skill](https://img.shields.io/badge/agent-skill-8A2BE2.svg)](SKILL.md)
 [![Model-agnostic](https://img.shields.io/badge/models-swappable-22D3EE.svg)](docs/model-selection.md)
@@ -88,8 +88,8 @@ A hybrid is allowed: Manim for the mathematical core, HyperFrames for title/chap
 ## Quick start
 
 ```bash
-git clone https://github.com/Temp0jd/explain-anything.git
-cd explain-anything
+git clone https://github.com/Temp0jd/claim-to-frame.git
+cd claim-to-frame
 
 python scripts/scaffold.py \
   --mode forward --artifact video --renderer hyperframes \
@@ -122,7 +122,7 @@ python scripts/check_release.py
 ## Repository layout
 
 ```text
-explain-anything/
+claim-to-frame/
 ├── SKILL.md                  # the agent skill
 ├── README.md                 # this file
 ├── README.zh-CN.md           # Chinese README
@@ -152,15 +152,15 @@ python scripts/validate_examples.py
 
 ## Install as a skill
 
-Keep the repository folder name `explain-anything` and the root `SKILL.md`.
+Keep the repository folder name `claim-to-frame` and the root `SKILL.md`.
 
 ```bash
 # Claude Code / Codex / Cursor-style skill directories
 mkdir -p ~/.claude/skills
-cp -r explain-anything ~/.claude/skills/explain-anything
+cp -r claim-to-frame ~/.claude/skills/claim-to-frame
 
 # or skills.sh
-npx skills add Temp0jd/explain-anything
+npx skills add Temp0jd/claim-to-frame
 ```
 
 ## Design principles

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Scaffold an explain-anything project.
+"""Scaffold an claim-to-frame project.
 
 Examples:
     python scripts/scaffold.py --mode forward --artifact video --title "Why caches help" --out ./explainers/caches
