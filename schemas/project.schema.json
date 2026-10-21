@@ -1,0 +1,251 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.com/schemas/project.schema.json",
+  "title": "Explain Anything Project",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "title",
+    "mode",
+    "artifact",
+    "language",
+    "renderer",
+    "models",
+    "stages"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "1.0"
+    },
+    "title": {
+      "type": "string",
+      "minLength": 1
+    },
+    "mode": {
+      "enum": [
+        "forward",
+        "reverse",
+        "hybrid"
+      ]
+    },
+    "artifact": {
+      "enum": [
+        "answer",
+        "ste",
+        "diagram",
+        "html",
+        "video",
+        "knowledge-film"
+      ]
+    },
+    "language": {
+      "type": "string",
+      "minLength": 2
+    },
+    "renderer": {
+      "enum": [
+        "manim",
+        "hyperframes",
+        "remotion",
+        "canvas",
+        "static"
+      ]
+    },
+    "models": {
+      "type": "object",
+      "required": [
+        "analysis",
+        "storyboard",
+        "implementation",
+        "review"
+      ],
+      "properties": {
+        "analysis": {
+          "$ref": "#/$defs/model"
+        },
+        "storyboard": {
+          "$ref": "#/$defs/model"
+        },
+        "implementation": {
+          "$ref": "#/$defs/model"
+        },
+        "review": {
+          "$ref": "#/$defs/model"
+        }
+      },
+      "additionalProperties": false
+    },
+    "stages": {
+      "type": "object",
+      "required": [
+        "0_intake",
+        "1_sources",
+        "2_strategy",
+        "3_storyboard",
+        "4_visual_system",
+        "5_renderer",
+        "6_pilot",
+        "7_build",
+        "8_qa"
+      ],
+      "properties": {
+        "0_intake": {
+          "$ref": "#/$defs/stage"
+        },
+        "1_sources": {
+          "$ref": "#/$defs/stage"
+        },
+        "2_strategy": {
+          "$ref": "#/$defs/stage"
+        },
+        "3_storyboard": {
+          "$ref": "#/$defs/stage"
+        },
+        "4_visual_system": {
+          "$ref": "#/$defs/stage"
+        },
+        "5_renderer": {
+          "$ref": "#/$defs/stage"
+        },
+        "6_pilot": {
+          "$ref": "#/$defs/stage"
+        },
+        "7_build": {
+          "$ref": "#/$defs/stage"
+        },
+        "8_qa": {
+          "$ref": "#/$defs/stage"
+        }
+      },
+      "additionalProperties": false
+    },
+    "model_history": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "role",
+          "from",
+          "to",
+          "reason"
+        ],
+        "properties": {
+          "role": {
+            "enum": [
+              "analysis",
+              "storyboard",
+              "implementation",
+              "review"
+            ]
+          },
+          "from": {
+            "type": "object"
+          },
+          "to": {
+            "type": "object"
+          },
+          "reason": {
+            "type": "string"
+          },
+          "at_stage": {
+            "type": "string"
+          },
+          "timestamp": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": true
+      }
+    },
+    "notes": {
+      "type": "string"
+    }
+  },
+  "additionalProperties": true,
+  "$defs": {
+    "stage": {
+      "enum": [
+        "pending",
+        "in_progress",
+        "done",
+        "blocked",
+        "skipped"
+      ]
+    },
+    "model": {
+      "type": "object",
+      "required": [
+        "status",
+        "selected_by"
+      ],
+      "properties": {
+        "status": {
+          "enum": [
+            "unset",
+            "selected",
+            "changed",
+            "unavailable"
+          ]
+        },
+        "provider": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "model": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "capabilities": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "selected_by": {
+          "enum": [
+            "user",
+            "auto",
+            "default"
+          ]
+        },
+        "reason": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": true,
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "enum": [
+                  "selected",
+                  "changed"
+                ]
+              }
+            },
+            "required": [
+              "status"
+            ]
+          },
+          "then": {
+            "properties": {
+              "provider": {
+                "type": "string",
+                "minLength": 1
+              },
+              "model": {
+                "type": "string",
+                "minLength": 1
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

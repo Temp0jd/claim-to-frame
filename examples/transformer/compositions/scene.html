@@ -1,0 +1,330 @@
+<template id="transformer-template">
+  <div
+    data-composition-id="transformer"
+    data-width="1920"
+    data-height="1080"
+    data-duration="107.88"
+  >
+    <link rel="stylesheet" href="assets/transformer.css" />
+
+    <div class="paper"></div>
+    <div class="grid"></div>
+
+    <div class="frame">
+      <div class="frame-row">
+        <span><span class="dot"></span>TRANSFORMER · A VISUAL INTRODUCTION</span>
+        <span>ATTENTION IS ALL YOU NEED · 2017</span>
+      </div>
+      <div class="frame-row">
+        <span>SOURCE-GROUNDED · 07 SCENES</span>
+        <span>VASWANI ET AL.</span>
+      </div>
+      <div class="progress-track"><div id="progress"></div></div>
+    </div>
+
+    <!-- S1 -->
+    <section class="scene" id="s1">
+      <div class="s1-copy">
+        <div class="eyebrow" id="s1-eyebrow">A VISUAL INTRODUCTION</div>
+        <h1 id="s1-title">Transformer</h1>
+        <div class="lede" id="s1-lede">让每个词，<br />直接看见所有词。</div>
+        <div class="s1-meta">
+          <div class="rule"></div>
+          <div class="tiny">SELF-ATTENTION · 2017</div>
+        </div>
+        <div class="s1-note"><span class="mark"></span>不是更深的网络，而是更直接的连接。</div>
+      </div>
+      <div class="s1-visual" id="s1-visual">
+        <svg class="s1-arcs" viewBox="0 0 820 430" aria-hidden="true">
+          <path class="s1-arc" d="M58 182 C58 40 228 20 228 122" />
+          <path class="s1-arc" d="M58 182 C58 70 398 40 398 212" />
+          <path class="s1-arc" d="M58 182 C58 30 568 10 568 112" />
+          <path class="s1-arc" d="M58 182 C58 50 738 30 738 192" />
+          <circle cx="228" cy="122" r="4" fill="#A64B2E" opacity=".55" />
+          <circle cx="398" cy="212" r="4" fill="#A64B2E" opacity=".55" />
+          <circle cx="568" cy="112" r="4" fill="#A64B2E" opacity=".55" />
+          <circle cx="738" cy="192" r="4" fill="#A64B2E" opacity=".55" />
+        </svg>
+        <div class="token" id="s1-token-1">猫</div>
+        <div class="token" id="s1-token-2">坐</div>
+        <div class="token" id="s1-token-3">在</div>
+        <div class="token" id="s1-token-4">垫子</div>
+        <div class="token" id="s1-token-5">上</div>
+        <div class="s1-note" id="s1-note" style="position:absolute; left:0; bottom:0;">每个词都能直接读取其他词</div>
+      </div>
+    </section>
+
+    <!-- S2 -->
+    <section class="scene" id="s2">
+      <div class="s2-layout">
+        <div class="s2-copy" id="s2-copy">
+          <div class="eyebrow">THE OLD WAY</div>
+          <h2>一步一步地读</h2>
+          <div class="lede">循环网络把信息压进一个状态，沿着序列传递。前面的信息，要经过很多步才能到达后面。</div>
+          <div class="s2-compare">
+            <div class="s2-row"><span class="s2-chip">顺序执行</span><span class="s2-chip">难以并行</span></div>
+            <div class="s2-row"><span class="s2-chip">长距离依赖</span><span class="s2-chip">容易被稀释</span></div>
+          </div>
+        </div>
+        <div class="s2-chain-wrap">
+          <div class="s2-chain">
+            <div class="chain-token t1">The</div>
+            <div class="chain-token t2">cat</div>
+            <div class="chain-token t3">sat</div>
+            <div class="chain-token t4">on</div>
+            <div class="chain-token t5">the mat</div>
+            <div class="chain-arrow a1">→</div>
+            <div class="chain-arrow a2">→</div>
+            <div class="chain-arrow a3">→</div>
+            <div class="chain-arrow a4">→</div>
+            <div id="s2-dot"></div>
+          </div>
+          <div class="s2-decay" id="s2-fade"></div>
+          <div id="s2-warning">信息沿链传递，越远越弱。</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- S3 -->
+    <section class="scene" id="s3">
+      <div class="eyebrow">SELF-ATTENTION</div>
+      <h2 id="s3-title">一次看见全句</h2>
+      <div class="s3-layout">
+        <div class="s3-left" id="s3-left">
+          <div class="tiny">TOKEN → Q · K · V</div>
+          <div class="s3-token">猫</div>
+          <div class="qkv">
+            <div class="qkv-card q" id="s3-q">Q</div>
+            <div class="qkv-card k" id="s3-k">K</div>
+            <div class="qkv-card v" id="s3-v">V</div>
+          </div>
+        </div>
+        <div class="s3-mid">
+          <div class="tiny">Q · Kᵀ → SOFTMAX</div>
+          <div class="matrix-wrap" id="s3-matrix">
+            <div class="matrix-highlight" id="s3-highlight"></div>
+            <div class="matrix">
+              <div class="cell head"></div>
+              <div class="cell head">猫</div><div class="cell head">坐</div><div class="cell head">在</div><div class="cell head">垫</div><div class="cell head">上</div>
+              <div class="cell side">猫</div><div class="cell hot">.62</div><div class="cell hot">.08</div><div class="cell hot">.12</div><div class="cell hot">.10</div><div class="cell hot">.08</div>
+              <div class="cell side">坐</div><div class="cell">.18</div><div class="cell">.44</div><div class="cell">.16</div><div class="cell">.12</div><div class="cell">.10</div>
+              <div class="cell side">在</div><div class="cell">.10</div><div class="cell">.20</div><div class="cell">.38</div><div class="cell">.18</div><div class="cell">.14</div>
+              <div class="cell side">垫</div><div class="cell">.08</div><div class="cell">.10</div><div class="cell">.16</div><div class="cell">.46</div><div class="cell">.20</div>
+              <div class="cell side">上</div><div class="cell">.06</div><div class="cell">.08</div><div class="cell">.12</div><div class="cell">.24</div><div class="cell">.50</div>
+            </div>
+          </div>
+          <div class="formula">Attention(Q, K, V) = softmax(QKᵀ / √d_k) V</div>
+        </div>
+        <div class="s3-right">
+          <div class="tiny">WEIGHTED SUM</div>
+          <div class="card output-card" id="s3-output">
+            <div class="label">新的表示</div>
+            <div class="value-bars">
+              <span style="height:64px"></span><span style="height:42px"></span><span style="height:78px"></span><span style="height:36px"></span><span style="height:54px"></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- S4 -->
+    <section class="scene" id="s4">
+      <div class="eyebrow">MULTI-HEAD ATTENTION</div>
+      <h2 id="s4-title">并行看不同的关系</h2>
+      <div class="s4-heads" id="s4-heads">
+        <div class="card head-card c1"><div class="head-title">HEAD 01</div><div class="head-label">语法</div><div class="head-pattern"><i class="on"></i><i></i><i class="on"></i><i></i><i></i><i></i><i class="on"></i><i></i><i class="on"></i><i></i><i class="on"></i><i></i><i class="on"></i><i></i><i></i><i></i><i></i><i class="on"></i><i class="on"></i><i></i><i></i><i class="on"></i><i></i><i></i><i class="on"></i></div></div>
+        <div class="card head-card c2"><div class="head-title">HEAD 02</div><div class="head-label">指代</div><div class="head-pattern"><i></i><i class="on"></i><i></i><i></i><i></i><i class="on"></i><i></i><i class="on"></i><i></i><i></i><i></i><i></i><i></i><i class="on"></i><i></i><i></i><i class="on"></i><i></i><i></i><i class="on"></i><i class="on"></i><i></i><i></i><i></i><i></i></div></div>
+        <div class="card head-card c3"><div class="head-title">HEAD 03</div><div class="head-label">语义</div><div class="head-pattern"><i></i><i></i><i class="on"></i><i></i><i></i><i></i><i></i><i></i><i class="on"></i><i></i><i class="on"></i><i></i><i></i><i></i><i class="on"></i><i></i><i class="on"></i><i></i><i></i><i></i><i></i><i></i><i class="on"></i><i class="on"></i><i></i></div></div>
+        <div class="card head-card c4"><div class="head-title">HEAD 04</div><div class="head-label">局部</div><div class="head-pattern"><i class="on"></i><i class="on"></i><i></i><i></i><i></i><i class="on"></i><i class="on"></i><i></i><i></i><i></i><i></i><i class="on"></i><i class="on"></i><i></i><i></i><i></i><i></i><i class="on"></i><i class="on"></i><i></i><i></i><i></i><i></i><i class="on"></i><i class="on"></i></div></div>
+      </div>
+      <div class="s4-merge" id="s4-merge">
+        <div class="card merge-card" id="s4-concat">concat</div>
+        <div class="merge-arrow">→</div>
+        <div class="card merge-card" id="s4-proj">W_O · 投影</div>
+      </div>
+      <div class="s4-note" id="s4-note">每个头有自己的 Q / K / V 投影；拼接后再投影回模型维度。</div>
+    </section>
+
+    <!-- S5 -->
+    <section class="scene" id="s5">
+      <div class="eyebrow">POSITIONAL ENCODING</div>
+      <h2 id="s5-title">注意力没有顺序感</h2>
+      <div class="s5-layout">
+        <div class="s5-left">
+          <div class="tiny">ORDER IS NOT IN THE ATTENTION</div>
+          <div class="s5-tokens" id="s5-tokens">
+            <div class="token" id="s5-t1">猫</div>
+            <div class="token" id="s5-t2">坐</div>
+            <div class="token" id="s5-t3">在</div>
+            <div class="token" id="s5-t4">垫子</div>
+            <div class="token" id="s5-t5">上</div>
+          </div>
+          <div class="s5-labels" id="s5-labels"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span></div>
+          <div class="s5-warning" id="s5-warning">打乱词序，注意力分数可能不变。</div>
+        </div>
+        <div class="s5-right">
+          <div class="card wave-card" id="s5-wave">
+            <svg viewBox="0 0 560 220" aria-hidden="true">
+              <path d="M0 110 C70 20 140 20 210 110 S350 200 420 110 S500 20 560 110" fill="none" stroke="#A64B2E" stroke-width="3" opacity=".7" />
+              <path d="M0 110 C70 200 140 200 210 110 S350 20 420 110 S500 200 560 110" fill="none" stroke="#4F6F5D" stroke-width="3" opacity=".7" />
+              <line x1="0" y1="110" x2="560" y2="110" stroke="#E3DCD2" stroke-width="2" />
+            </svg>
+            <div class="wave-labels"><span class="tiny">sin</span><span class="tiny">cos</span><span class="tiny">position</span></div>
+          </div>
+          <div class="formula">PE(pos, 2i) = sin(pos / 10000^(2i/d))</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- S6 -->
+    <section class="scene" id="s6">
+      <div class="eyebrow">THE TRANSFORMER BLOCK</div>
+      <h2 id="s6-title">一个层，堆叠很多次</h2>
+      <div class="s6-layout">
+        <div class="s6-stack" id="s6-stack">
+          <div class="block">x · 输入</div>
+          <div class="arrow-down">↓</div>
+          <div class="block attn">Multi-Head Attention</div>
+          <div class="residual">+ residual</div>
+          <div class="block norm">Add &amp; Norm</div>
+          <div class="arrow-down">↓</div>
+          <div class="block ffn">Feed Forward</div>
+          <div class="residual">+ residual</div>
+          <div class="block norm">Add &amp; Norm</div>
+          <div class="arrow-down">↓</div>
+          <div class="block">y · 输出</div>
+        </div>
+        <div class="s6-side">
+          <div class="stack-badge" id="s6-badge">× N</div>
+          <div class="s6-note" id="s6-note">
+            <div class="item"><span class="mark"></span>自注意力：聚合全句信息</div>
+            <div class="item"><span class="mark"></span>前馈网络：逐位置变换</div>
+            <div class="item"><span class="mark"></span>残差 + 归一化：稳定训练</div>
+            <div class="item"><span class="mark"></span>并行：不依赖序列递归</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- S7 -->
+    <section class="scene" id="s7">
+      <div class="eyebrow" data-layout-allow-occlusion>WHY IT MATTERS</div>
+      <h2 id="s7-title">四个关键词，一个代价</h2>
+      <div class="s7-cards" id="s7-cards">
+        <div class="card s7-card"><div class="num">01</div><div class="name">直接连接</div><div class="desc">任意两个位置之间，路径长度为 1。</div></div>
+        <div class="card s7-card"><div class="num">02</div><div class="name">并行计算</div><div class="desc">整句同时进入网络，不沿序列递归。</div></div>
+        <div class="card s7-card"><div class="num">03</div><div class="name">多头视角</div><div class="desc">不同的头，关注不同的关系模式。</div></div>
+        <div class="card s7-card"><div class="num">04</div><div class="name">位置编码</div><div class="desc">把顺序信息加回表示，补上注意力的盲区。</div></div>
+      </div>
+      <div class="s7-cost" id="s7-cost">
+        <div class="big">O(n²)</div>
+        <div class="text">注意力矩阵随序列长度平方增长；长上下文仍然是成本问题。</div>
+      </div>
+      <div class="s7-end" id="s7-end" data-layout-allow-occlusion>
+        <h2>Transformer</h2>
+        <div class="sub">让每个词，直接看见所有词。</div>
+        <div class="bar"></div>
+        <div class="cite">ATTENTION IS ALL YOU NEED · 2017 · VASWANI ET AL.</div>
+        <div class="terms">DIRECT CONNECTION · PARALLELISM · MULTI-HEAD · POSITION</div>
+      </div>
+    </section>
+
+    <script src="assets/gsap.min.js"></script>
+    <script>
+      const tl = gsap.timeline({ paused: true });
+
+      // Scene visibility (crossfade at boundaries)
+      tl.set(".scene", { opacity: 0 }, 0);
+      tl.to("#s1", { opacity: 1, duration: 0.35 }, 0);
+      tl.to("#s1", { opacity: 0, duration: 0.30 }, 10.406);
+      tl.to("#s2", { opacity: 1, duration: 0.30 }, 10.406);
+      tl.to("#s2", { opacity: 0, duration: 0.30 }, 23.322);
+      tl.to("#s3", { opacity: 1, duration: 0.30 }, 23.322);
+      tl.to("#s3", { opacity: 0, duration: 0.30 }, 44.186);
+      tl.to("#s4", { opacity: 1, duration: 0.30 }, 44.186);
+      tl.to("#s4", { opacity: 0, duration: 0.30 }, 59.910);
+      tl.to("#s5", { opacity: 1, duration: 0.30 }, 59.910);
+      tl.to("#s5", { opacity: 0, duration: 0.30 }, 74.386);
+      tl.to("#s6", { opacity: 1, duration: 0.30 }, 74.386);
+      tl.to("#s6", { opacity: 0, duration: 0.30 }, 90.090);
+      tl.to("#s7", { opacity: 1, duration: 0.30 }, 90.090);
+      tl.to("#s7", { opacity: 0, duration: 0.40 }, 107.480);
+
+      // S1
+      tl.fromTo("#s1-eyebrow", { opacity: 0 }, { opacity: 1, duration: 0.6 }, 0.10);
+      tl.fromTo("#s1-title", { opacity: 0, y: 28 }, { opacity: 1, y: 0, duration: 0.9 }, 0.20);
+      tl.fromTo("#s1-lede", { opacity: 0, y: 22 }, { opacity: 1, y: 0, duration: 0.8 }, 0.55);
+      tl.fromTo("#s1-visual .token", { opacity: 0, y: 20, scale: 0.96 }, { opacity: 1, y: 0, scale: 1, duration: 0.55, stagger: 0.12 }, 0.75);
+      tl.fromTo(".s1-arc", { opacity: 0 }, { opacity: 0.45, duration: 0.7, stagger: 0.10 }, 1.55);
+      tl.fromTo("#s1-note", { opacity: 0, y: 8 }, { opacity: 1, y: 0, duration: 0.6 }, 2.90);
+      tl.to("#s1-token-1", { scale: 1.08, duration: 0.45 }, 4.20);
+      tl.to("#s1-token-1", { scale: 1, duration: 0.45 }, 4.65);
+
+      // S2
+      tl.fromTo("#s2-copy", { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.75 }, 10.856);
+      tl.fromTo(".chain-token", { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: 0.5, stagger: 0.12 }, 11.406);
+      tl.fromTo("#s2-dot", { x: 0 }, { x: 760, duration: 8.0, ease: "none" }, 11.706);
+      tl.fromTo("#s2-fade", { opacity: 0 }, { opacity: 1, duration: 1.0 }, 17.706);
+      tl.fromTo("#s2-warning", { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.7 }, 18.706);
+
+      // S3
+      tl.fromTo("#s3-title", { opacity: 0, y: 22 }, { opacity: 1, y: 0, duration: 0.8 }, 23.772);
+      tl.fromTo("#s3-left", { opacity: 0, x: -20 }, { opacity: 1, x: 0, duration: 0.7 }, 24.200);
+      tl.fromTo("#s3-q", { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: 0.5 }, 24.700);
+      tl.fromTo("#s3-k", { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: 0.5 }, 24.900);
+      tl.fromTo("#s3-v", { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: 0.5 }, 25.100);
+      tl.fromTo("#s3-matrix", { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: 0.7 }, 25.700);
+      tl.fromTo(".matrix .cell", { opacity: 0 }, { opacity: 1, duration: 0.35, stagger: 0.012 }, 25.850);
+      tl.to("#s3-highlight", { opacity: 1, duration: 0.6 }, 27.300);
+      tl.fromTo(".s3-mid .formula, .s3-left .tiny, .s3-right .tiny", { opacity: 0 }, { opacity: 1, duration: 0.5, stagger: 0.08 }, 28.200);
+      tl.fromTo("#s3-output", { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: 0.7 }, 29.500);
+      tl.fromTo(".value-bars span", { scaleY: 0 }, { scaleY: 1, duration: 0.5, stagger: 0.08 }, 30.200);
+
+      // S4
+      tl.fromTo("#s4-title", { opacity: 0, y: 22 }, { opacity: 1, y: 0, duration: 0.8 }, 44.636);
+      tl.fromTo(".head-card", { opacity: 0, y: 24, scale: 0.97 }, { opacity: 1, y: 0, scale: 1, duration: 0.6, stagger: 0.18 }, 45.100);
+      tl.fromTo("#s4-merge", { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.7 }, 47.500);
+      tl.fromTo("#s4-note", { opacity: 0 }, { opacity: 1, duration: 0.6 }, 48.400);
+
+      // S5
+      tl.fromTo("#s5-title", { opacity: 0, y: 22 }, { opacity: 1, y: 0, duration: 0.8 }, 60.360);
+      tl.fromTo("#s5-tokens .token", { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: 0.5, stagger: 0.10 }, 60.850);
+      tl.fromTo("#s5-labels span", { opacity: 0 }, { opacity: 1, duration: 0.4, stagger: 0.08 }, 61.400);
+      tl.to("#s5-t1", { x: -36, duration: 0.65 }, 63.500);
+      tl.to("#s5-t2", { x: 28, duration: 0.65 }, 63.600);
+      tl.to("#s5-t3", { x: -18, duration: 0.65 }, 63.700);
+      tl.to("#s5-t4", { x: 22, duration: 0.65 }, 63.800);
+      tl.to("#s5-t5", { x: -24, duration: 0.65 }, 63.900);
+      tl.to("#s5-t1", { x: 0, duration: 0.65 }, 66.000);
+      tl.to("#s5-t2", { x: 0, duration: 0.65 }, 66.100);
+      tl.to("#s5-t3", { x: 0, duration: 0.65 }, 66.200);
+      tl.to("#s5-t4", { x: 0, duration: 0.65 }, 66.300);
+      tl.to("#s5-t5", { x: 0, duration: 0.65 }, 66.400);
+      tl.fromTo("#s5-warning", { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.7 }, 64.600);
+      tl.fromTo("#s5-wave", { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: 0.8 }, 67.200);
+      tl.fromTo(".s5-right .formula", { opacity: 0 }, { opacity: 1, duration: 0.5 }, 68.300);
+
+      // S6
+      tl.fromTo("#s6-title", { opacity: 0, y: 22 }, { opacity: 1, y: 0, duration: 0.8 }, 74.836);
+      tl.fromTo("#s6-stack .block", { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.5, stagger: 0.14 }, 75.300);
+      tl.fromTo("#s6-stack .arrow-down", { opacity: 0 }, { opacity: 1, duration: 0.3, stagger: 0.10 }, 75.500);
+      tl.fromTo("#s6-stack .residual", { opacity: 0, x: 10 }, { opacity: 1, x: 0, duration: 0.4, stagger: 0.14 }, 76.800);
+      tl.fromTo("#s6-badge", { opacity: 0, scale: 0.9 }, { opacity: 1, scale: 1, duration: 0.7 }, 77.500);
+      tl.fromTo("#s6-note .item", { opacity: 0, x: 12 }, { opacity: 1, x: 0, duration: 0.5, stagger: 0.12 }, 78.200);
+
+      // S7
+      tl.fromTo("#s7-title", { opacity: 0, y: 22 }, { opacity: 1, y: 0, duration: 0.8 }, 90.540);
+      tl.fromTo(".s7-card", { opacity: 0, y: 22 }, { opacity: 1, y: 0, duration: 0.55, stagger: 0.15 }, 91.000);
+      tl.fromTo("#s7-cost", { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.7 }, 93.500);
+      tl.to("#s7-title, #s7-cards, #s7-cost", { opacity: 0, duration: 0.6 }, 97.000);
+      tl.fromTo("#s7-end", { opacity: 0 }, { opacity: 1, duration: 0.8 }, 97.200);
+
+      // Progress
+      tl.fromTo("#progress", { scaleX: 0 }, { scaleX: 1, duration: 107.88, ease: "none" }, 0);
+
+      window.__timelines = window.__timelines || {};
+      window.__timelines["transformer"] = tl;
+      tl.seek(0);
+    </script>
+  </div>
+</template>

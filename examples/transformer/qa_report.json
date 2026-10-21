@@ -1,0 +1,64 @@
+{
+  "schema_version": "1.0",
+  "project": "transformer",
+  "generated_at": "2026-10-21T00:00:00Z",
+  "status": "pass",
+  "checks": [
+    {
+      "id": "fidelity",
+      "severity": "error",
+      "status": "pass",
+      "message": "Claims trace to sources.md",
+      "evidence": "Vaswani et al. 2017, sections 3.1–4"
+    },
+    {
+      "id": "visual-first",
+      "severity": "error",
+      "status": "pass",
+      "message": "Each scene has a recognizable subject and one focal action",
+      "evidence": "frames at 5/17/34/52/67/82/100s"
+    },
+    {
+      "id": "contrast",
+      "severity": "error",
+      "status": "pass",
+      "message": "109/109 text checks pass WCAG AA",
+      "evidence": "HyperFrames check"
+    },
+    {
+      "id": "layout",
+      "severity": "error",
+      "status": "pass",
+      "message": "0 layout issues across 9 samples",
+      "evidence": "HyperFrames check"
+    },
+    {
+      "id": "runtime",
+      "severity": "error",
+      "status": "pass",
+      "message": "0 runtime warnings after selector fixes",
+      "evidence": "HyperFrames check"
+    },
+    {
+      "id": "decode",
+      "severity": "error",
+      "status": "pass",
+      "message": "No decode errors",
+      "evidence": "ffmpeg -v error"
+    },
+    {
+      "id": "captions",
+      "severity": "warn",
+      "status": "pass",
+      "message": "26 Chinese cues",
+      "evidence": "captions.srt"
+    },
+    {
+      "id": "illustrative",
+      "severity": "warn",
+      "status": "pass",
+      "message": "Attention weights and O(n²) are illustrative/textbook values, not measured from a model",
+      "evidence": "README simplifications"
+    }
+  ]
+}

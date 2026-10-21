@@ -1,0 +1,42 @@
+{
+  "schema_version": "1.0",
+  "project": "{{PROJECT_SLUG}}",
+  "mode": "{{MODE}}",
+  "target_duration": 90,
+  "style_tokens": {
+    "background": "#0B1020",
+    "text": "#E6EDF3",
+    "primary": "#22D3EE",
+    "accent": "#FF6B9D",
+    "warning": "#FF7B72",
+    "font_display": "Noto Sans CJK SC",
+    "font_body": "Noto Sans CJK SC",
+    "font_mono": "DejaVu Sans Mono",
+    "safe_margin_px": 80
+  },
+  "scenes": [
+    {
+      "id": "S01",
+      "start": 0,
+      "end": 9,
+      "purpose": "hook",
+      "caption": "{{CAPTION}}",
+      "visual": "{{VISUAL}}",
+      "action": "{{ACTION}}",
+      "on_screen_text": [
+        "{{TEXT}}"
+      ],
+      "audio": {
+        "narration": "",
+        "music": "none"
+      },
+      "renderer": "{{RENDERER}}",
+      "evidence": {
+        "source": "sources.md#claim-1"
+      },
+      "acceptance": [
+        "{{ACCEPTANCE}}"
+      ]
+    }
+  ]
+}

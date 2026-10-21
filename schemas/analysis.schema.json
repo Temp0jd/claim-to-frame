@@ -1,0 +1,141 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.com/schemas/analysis.schema.json",
+  "title": "Video Analysis",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "video_id",
+    "source",
+    "duration",
+    "shots"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "1.0"
+    },
+    "video_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "source": {
+      "type": "string",
+      "minLength": 1
+    },
+    "duration": {
+      "type": "number",
+      "exclusiveMinimum": 0
+    },
+    "fps": {
+      "type": "number",
+      "exclusiveMinimum": 0
+    },
+    "resolution": {
+      "type": "array",
+      "items": {
+        "type": "integer"
+      },
+      "minItems": 2,
+      "maxItems": 2
+    },
+    "style_tokens": {
+      "type": "object"
+    },
+    "shots": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "start",
+          "end",
+          "visual",
+          "action",
+          "evidence"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "start": {
+            "type": "number",
+            "minimum": 0
+          },
+          "end": {
+            "type": "number",
+            "exclusiveMinimum": 0
+          },
+          "purpose": {
+            "type": "string"
+          },
+          "visual": {
+            "type": "string",
+            "minLength": 1
+          },
+          "action": {
+            "type": "string",
+            "minLength": 1
+          },
+          "on_screen_text": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "audio": {
+            "type": "object"
+          },
+          "evidence": {
+            "type": "object",
+            "required": [
+              "frames",
+              "source"
+            ],
+            "properties": {
+              "frames": {
+                "type": "array",
+                "items": {
+                  "type": "number"
+                }
+              },
+              "transcript": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "ocr": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "source": {
+                "type": "string",
+                "minLength": 1
+              }
+            },
+            "additionalProperties": true
+          },
+          "confidence": {
+            "enum": [
+              "high",
+              "medium",
+              "low"
+            ]
+          }
+        },
+        "additionalProperties": true
+      }
+    },
+    "open_questions": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "additionalProperties": true
+}

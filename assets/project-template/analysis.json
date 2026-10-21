@@ -1,0 +1,14 @@
+{
+  "schema_version": "1.0",
+  "video_id": "{{VIDEO_ID}}",
+  "source": "{{SOURCE_PATH}}",
+  "duration": 0,
+  "fps": 30,
+  "resolution": [
+    1920,
+    1080
+  ],
+  "style_tokens": {},
+  "shots": [],
+  "open_questions": []
+}

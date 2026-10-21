@@ -1,0 +1,236 @@
+{
+  "schema_version": "1.0",
+  "project": "transformer",
+  "mode": "forward",
+  "target_duration": 107.88,
+  "style_tokens": {
+    "background": "#F7F4EE",
+    "text": "#2F2A26",
+    "primary": "#A64B2E",
+    "accent": "#A64B2E",
+    "warning": "#8C3B2A",
+    "font_display": "Noto Serif CJK SC",
+    "font_body": "Noto Sans CJK SC",
+    "font_mono": "DejaVu Sans Mono",
+    "safe_margin_px": 96
+  },
+  "scenes": [
+    {
+      "id": "S01",
+      "start": 0,
+      "end": 10.706,
+      "purpose": "hook",
+      "caption": "Transformer 的核心，不是更深的网络，而是更直接的连接。",
+      "visual": "浅色学术画布；五个中文词卡（猫、坐、在、垫子、上）错落排布，细弧线从「猫」连向其他词。",
+      "action": "标题与词卡依次浮现；注意力弧线从第一个词展开。",
+      "on_screen_text": [
+        "Transformer",
+        "让每个词，直接看见所有词。",
+        "SELF-ATTENTION · 2017"
+      ],
+      "audio": {
+        "narration": "Transformer 的核心，不是更深的网络，而是一种更直接的连接：让句子里的每个词，同时看见所有其他词。"
+      },
+      "renderer": "hyperframes",
+      "evidence": {
+        "source": "sources.md#claim-1",
+        "frames": [
+          1,
+          5,
+          9
+        ]
+      },
+      "acceptance": [
+        "标题在 1s 内可读",
+        "五个词卡全部可见",
+        "弧线从第一个词连向其余词"
+      ]
+    },
+    {
+      "id": "S02",
+      "start": 10.706,
+      "end": 23.622,
+      "purpose": "example",
+      "caption": "循环网络只能一步一步读，长距离信息容易被稀释。",
+      "visual": "左侧说明卡；右侧五个英文词卡沿箭头排成链，一个赭色圆点沿链移动，底部渐隐线。",
+      "action": "圆点从左到右移动；底部渐隐线出现；警示文字浮现。",
+      "on_screen_text": [
+        "THE OLD WAY",
+        "一步一步地读",
+        "顺序执行 / 难以并行"
+      ],
+      "audio": {
+        "narration": "在它之前，循环网络只能沿着序列一步一步读。前面的信息要经过很多步才能到达后面，长距离依赖很容易被稀释。"
+      },
+      "renderer": "hyperframes",
+      "evidence": {
+        "source": "sources.md#claim-7",
+        "frames": [
+          13,
+          17,
+          22
+        ]
+      },
+      "acceptance": [
+        "链式结构可读",
+        "圆点在场景内移动",
+        "警示文字与渐隐线可见"
+      ]
+    },
+    {
+      "id": "S03",
+      "start": 23.622,
+      "end": 44.486,
+      "purpose": "mechanism",
+      "caption": "每个词生成 Q、K、V；Query 与所有 Key 做点积，softmax 后加权 Value。",
+      "visual": "左侧「猫」词卡与 Q/K/V 三张卡片；中间 5×5 相关性矩阵，第一行高亮；右侧新的表示与五根加权柱。",
+      "action": "Q/K/V 依次出现；矩阵逐格填充；第一行高亮；公式与输出浮现。",
+      "on_screen_text": [
+        "Q · Kᵀ → SOFTMAX",
+        "Attention(Q,K,V)=softmax(QKᵀ/√d_k)V",
+        "WEIGHTED SUM"
+      ],
+      "audio": {
+        "narration": "自注意力换了一种做法。每个词生成三个向量：Query、Key、Value。Query 和所有 Key 做点积，得到相关性分数；softmax 归一化后，再用这些权重去加权 Value。于是每个词都能直接聚合全句的信息。"
+      },
+      "renderer": "hyperframes",
+      "evidence": {
+        "source": "sources.md#claim-1",
+        "frames": [
+          26,
+          34,
+          41
+        ]
+      },
+      "acceptance": [
+        "Q/K/V 三张卡片可读",
+        "矩阵第一行高亮",
+        "公式和输出卡片可见"
+      ]
+    },
+    {
+      "id": "S04",
+      "start": 44.486,
+      "end": 60.21,
+      "purpose": "mechanism",
+      "caption": "多头注意力并行关注不同关系，再拼接投影。",
+      "visual": "四张 HEAD 卡片（语法、指代、语义、局部），每张有 5×5 小网格；下方 concat 与 W_O 投影。",
+      "action": "四张头卡依次出现；合并条与投影出现；说明文字浮现。",
+      "on_screen_text": [
+        "MULTI-HEAD ATTENTION",
+        "HEAD 01–04",
+        "concat → W_O"
+      ],
+      "audio": {
+        "narration": "一个注意力头只能看一种关系。多头注意力让多个头并行，各自关注不同的模式：语法、指代、语义。最后把结果拼接起来，再投影回模型维度。"
+      },
+      "renderer": "hyperframes",
+      "evidence": {
+        "source": "sources.md#claim-2",
+        "frames": [
+          47,
+          52,
+          58
+        ]
+      },
+      "acceptance": [
+        "四张头卡全部可见",
+        "concat 与 W_O 可见",
+        "标签不重叠"
+      ]
+    },
+    {
+      "id": "S05",
+      "start": 60.21,
+      "end": 74.686,
+      "purpose": "mechanism",
+      "caption": "注意力没有顺序感；位置编码把顺序信息加回来。",
+      "visual": "五个词卡先轻微错位再归位；下方位置编号；右侧 sin/cos 波形卡与位置编码公式。",
+      "action": "词卡错位、归位；位置编号出现；波形与公式浮现。",
+      "on_screen_text": [
+        "POSITIONAL ENCODING",
+        "1 2 3 4 5",
+        "PE(pos,2i)=sin(pos/10000^(2i/d))"
+      ],
+      "audio": {
+        "narration": "但注意力本身没有顺序感。打乱词序，分数可能一样。所以 Transformer 会给每个位置加上位置编码，让模型知道谁在前、谁在后。"
+      },
+      "renderer": "hyperframes",
+      "evidence": {
+        "source": "sources.md#claim-3",
+        "frames": [
+          63,
+          67,
+          72
+        ]
+      },
+      "acceptance": [
+        "词卡错位后归位",
+        "位置编号 1–5 可见",
+        "波形与公式可见"
+      ]
+    },
+    {
+      "id": "S06",
+      "start": 74.686,
+      "end": 90.39,
+      "purpose": "mechanism",
+      "caption": "一个 Transformer 层由多头注意力、前馈网络、残差连接和层归一化组成。",
+      "visual": "纵向层结构：输入 → Multi-Head Attention → Add & Norm → Feed Forward → Add & Norm → 输出；右侧 ×N 与四条注释。",
+      "action": "模块从上到下依次点亮；残差标签与 ×N 出现。",
+      "on_screen_text": [
+        "THE TRANSFORMER BLOCK",
+        "× N",
+        "residual + norm"
+      ],
+      "audio": {
+        "narration": "一个 Transformer 层，通常是自注意力加前馈网络，再配合残差连接和层归一化。这样的层堆叠很多次，就形成了可以并行训练、容量很大的模型。"
+      },
+      "renderer": "hyperframes",
+      "evidence": {
+        "source": "sources.md#claim-4",
+        "frames": [
+          78,
+          82,
+          88
+        ]
+      },
+      "acceptance": [
+        "层结构从上到下可读",
+        "残差与 Add & Norm 清晰",
+        "×N 与四条注释不重叠"
+      ]
+    },
+    {
+      "id": "S07",
+      "start": 90.39,
+      "end": 107.88,
+      "purpose": "recap",
+      "caption": "直接连接、并行、多头、位置编码；代价是 O(n²) 的注意力。",
+      "visual": "四张关键词卡片；下方 O(n²) 成本说明；结尾卡显示 Transformer 与论文引用。",
+      "action": "卡片依次出现；成本说明浮现；结尾卡覆盖并停留。",
+      "on_screen_text": [
+        "WHY IT MATTERS",
+        "O(n²)",
+        "Attention Is All You Need · 2017"
+      ],
+      "audio": {
+        "narration": "所以，Transformer 的关键词是：直接连接、并行计算、多头视角、位置编码。它也有代价：注意力计算随序列长度平方增长。但它仍然是今天大语言模型的基础。"
+      },
+      "renderer": "hyperframes",
+      "evidence": {
+        "source": "sources.md#claim-6",
+        "frames": [
+          93,
+          100,
+          105
+        ]
+      },
+      "acceptance": [
+        "四张卡片全部可见",
+        "O(n²) 成本说明可见",
+        "结尾卡可读并停留至少 4s"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,67 @@
+{
+  "schema_version": "1.0",
+  "title": "Transformer: A Visual Introduction",
+  "mode": "forward",
+  "artifact": "video",
+  "language": "zh-CN",
+  "renderer": "hyperframes",
+  "models": {
+    "analysis": {
+      "status": "selected",
+      "provider": "single-session",
+      "model": "current-session",
+      "capabilities": [
+        "text",
+        "image"
+      ],
+      "selected_by": "default",
+      "reason": "Example project: one session performed all four roles; replace with your model choices."
+    },
+    "storyboard": {
+      "status": "selected",
+      "provider": "single-session",
+      "model": "current-session",
+      "capabilities": [
+        "text",
+        "long_context"
+      ],
+      "selected_by": "default",
+      "reason": "Example project: one session performed all four roles; replace with your model choices."
+    },
+    "implementation": {
+      "status": "selected",
+      "provider": "single-session",
+      "model": "current-session",
+      "capabilities": [
+        "code",
+        "shell",
+        "file_edit"
+      ],
+      "selected_by": "default",
+      "reason": "Example project: one session performed all four roles; replace with your model choices."
+    },
+    "review": {
+      "status": "selected",
+      "provider": "single-session",
+      "model": "current-session",
+      "capabilities": [
+        "text",
+        "image"
+      ],
+      "selected_by": "default",
+      "reason": "Example project: one session performed all four roles; replace with your model choices."
+    }
+  },
+  "stages": {
+    "0_intake": "done",
+    "1_sources": "done",
+    "2_strategy": "done",
+    "3_storyboard": "done",
+    "4_visual_system": "done",
+    "5_renderer": "done",
+    "6_pilot": "done",
+    "7_build": "done",
+    "8_qa": "done"
+  },
+  "model_history": []
+}

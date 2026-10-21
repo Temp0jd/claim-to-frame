@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "project": "transformer",
+  "renderer": "hyperframes",
+  "renderer_version": "0.8.181",
+  "output": "render/final.mp4",
+  "duration": 107.9,
+  "width": 1920,
+  "height": 1080,
+  "fps": 30,
+  "files": [
+    "render/final.mp4",
+    "thumbnail.png",
+    "captions.srt",
+    "captions.vtt",
+    "preview.gif"
+  ],
+  "checks": [
+    {
+      "name": "hyperframes-check",
+      "status": "pass",
+      "evidence": "0 errors, 0 runtime/layout/contrast errors; 1 file-size warning"
+    },
+    {
+      "name": "ffprobe",
+      "status": "pass",
+      "evidence": "h264/aac, 107.9s, 1920x1080, 30fps"
+    },
+    {
+      "name": "decode",
+      "status": "pass",
+      "evidence": "no decode errors"
+    },
+    {
+      "name": "black-frames",
+      "status": "pass",
+      "evidence": "none detected"
+    },
+    {
+      "name": "loudness",
+      "status": "pass",
+      "evidence": "mean -19.5 dB, max -4.5 dB"
+    }
+  ]
+}

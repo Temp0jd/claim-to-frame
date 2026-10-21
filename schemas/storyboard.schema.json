@@ -1,0 +1,166 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.com/schemas/storyboard.schema.json",
+  "title": "Storyboard",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "project",
+    "mode",
+    "style_tokens",
+    "scenes"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "1.0"
+    },
+    "project": {
+      "type": "string",
+      "minLength": 1
+    },
+    "mode": {
+      "enum": [
+        "forward",
+        "reverse",
+        "hybrid"
+      ]
+    },
+    "target_duration": {
+      "type": "number",
+      "exclusiveMinimum": 0
+    },
+    "style_tokens": {
+      "type": "object",
+      "required": [
+        "background",
+        "text",
+        "primary",
+        "accent",
+        "font_display",
+        "font_body",
+        "safe_margin_px"
+      ],
+      "properties": {
+        "background": {
+          "type": "string"
+        },
+        "text": {
+          "type": "string"
+        },
+        "primary": {
+          "type": "string"
+        },
+        "accent": {
+          "type": "string"
+        },
+        "warning": {
+          "type": "string"
+        },
+        "font_display": {
+          "type": "string"
+        },
+        "font_body": {
+          "type": "string"
+        },
+        "font_mono": {
+          "type": "string"
+        },
+        "safe_margin_px": {
+          "type": "integer",
+          "minimum": 0
+        }
+      },
+      "additionalProperties": true
+    },
+    "scenes": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "start",
+          "end",
+          "purpose",
+          "caption",
+          "visual",
+          "action",
+          "on_screen_text",
+          "audio",
+          "renderer",
+          "acceptance"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "start": {
+            "type": "number",
+            "minimum": 0
+          },
+          "end": {
+            "type": "number",
+            "exclusiveMinimum": 0
+          },
+          "purpose": {
+            "enum": [
+              "hook",
+              "example",
+              "mechanism",
+              "boundary",
+              "recap",
+              "transition",
+              "title"
+            ]
+          },
+          "caption": {
+            "type": "string",
+            "minLength": 1
+          },
+          "visual": {
+            "type": "string",
+            "minLength": 1
+          },
+          "action": {
+            "type": "string",
+            "minLength": 1
+          },
+          "on_screen_text": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "audio": {
+            "type": "object"
+          },
+          "renderer": {
+            "enum": [
+              "manim",
+              "hyperframes",
+              "remotion",
+              "canvas",
+              "static"
+            ]
+          },
+          "evidence": {
+            "type": "object"
+          },
+          "acceptance": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "string"
+            }
+          },
+          "no_new_visual": {
+            "type": "boolean"
+          }
+        },
+        "additionalProperties": true
+      }
+    }
+  },
+  "additionalProperties": true
+}

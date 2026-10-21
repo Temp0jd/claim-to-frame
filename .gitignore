@@ -1,0 +1,19 @@
+__pycache__/
+*.py[cod]
+.venv/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+node_modules/
+.hyperframes/
+render/tmp/
+*.log
+.DS_Store
+.env
+.env.*
+.thumbnails/
+examples/*/render/silent.mp4
+
+# local model routing and root QA output
+/model-registry.json
+/qa_report.json

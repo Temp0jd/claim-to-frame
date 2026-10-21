@@ -1,0 +1,82 @@
+{
+  "total": 107.88,
+  "scenes": [
+    {
+      "id": "S01",
+      "slug": "hook",
+      "text": "Transformer 的核心，不是更深的网络，而是一种更直接的连接：让句子里的每个词，同时看见所有其他词。",
+      "audio_duration": 9.456,
+      "lead": 0.35,
+      "tail": 0.9,
+      "duration": 10.706,
+      "start": 0.0,
+      "end": 10.706
+    },
+    {
+      "id": "S02",
+      "slug": "problem",
+      "text": "在它之前，循环网络只能沿着序列一步一步读。前面的信息要经过很多步才能到达后面，长距离依赖很容易被稀释。",
+      "audio_duration": 11.616,
+      "lead": 0.4,
+      "tail": 0.9,
+      "duration": 12.916,
+      "start": 10.706,
+      "end": 23.622
+    },
+    {
+      "id": "S03",
+      "slug": "attention",
+      "text": "自注意力换了一种做法。每个词生成三个向量：Query、Key、Value。Query 和所有 Key 做点积，得到相关性分数；softmax 归一化后，再用这些权重去加权 Value。于是每个词都能直接聚合全句的信息。",
+      "audio_duration": 19.464,
+      "lead": 0.4,
+      "tail": 1.0,
+      "duration": 20.864,
+      "start": 23.622,
+      "end": 44.486
+    },
+    {
+      "id": "S04",
+      "slug": "heads",
+      "text": "一个注意力头只能看一种关系。多头注意力让多个头并行，各自关注不同的模式：语法、指代、语义。最后把结果拼接起来，再投影回模型维度。",
+      "audio_duration": 14.424,
+      "lead": 0.4,
+      "tail": 0.9,
+      "duration": 15.724,
+      "start": 44.486,
+      "end": 60.21
+    },
+    {
+      "id": "S05",
+      "slug": "position",
+      "text": "但注意力本身没有顺序感。打乱词序，分数可能一样。所以 Transformer 会给每个位置加上位置编码，让模型知道谁在前、谁在后。",
+      "audio_duration": 13.176,
+      "lead": 0.4,
+      "tail": 0.9,
+      "duration": 14.476,
+      "start": 60.21,
+      "end": 74.686
+    },
+    {
+      "id": "S06",
+      "slug": "block",
+      "text": "一个 Transformer 层，通常是自注意力加前馈网络，再配合残差连接和层归一化。这样的层堆叠很多次，就形成了可以并行训练、容量很大的模型。",
+      "audio_duration": 14.304,
+      "lead": 0.4,
+      "tail": 1.0,
+      "duration": 15.704,
+      "start": 74.686,
+      "end": 90.39
+    },
+    {
+      "id": "S07",
+      "slug": "recap",
+      "text": "所以，Transformer 的关键词是：直接连接、并行计算、多头视角、位置编码。它也有代价：注意力计算随序列长度平方增长。但它仍然是今天大语言模型的基础。",
+      "audio_duration": 15.84,
+      "lead": 0.45,
+      "tail": 1.2,
+      "duration": 17.49,
+      "start": 90.39,
+      "end": 107.88
+    }
+  ]
+}

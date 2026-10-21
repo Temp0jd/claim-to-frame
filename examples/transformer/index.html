@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="zh-CN" data-resolution="landscape">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1920, height=1080" />
+    <title>Transformer — A Visual Introduction</title>
+    <style>
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body {
+        width: 1920px; height: 1080px; overflow: hidden;
+        background: #F7F4EE;
+      }
+      #root { position: relative; width: 100%; height: 100%; }
+      .sr-only {
+        position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+        overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0;
+      }
+      @media (prefers-reduced-motion: reduce) {
+        body { background: #F7F4EE; }
+      }
+    </style>
+  </head>
+  <body>
+    <div
+      id="root"
+      data-composition-id="main"
+      data-start="0"
+      data-duration="107.88"
+      data-width="1920"
+      data-height="1080"
+      data-no-timeline
+    >
+      <div
+        id="film-host"
+        data-composition-id="transformer"
+        data-composition-src="compositions/scene.html"
+        data-start="0"
+        data-duration="107.88"
+        data-width="1920"
+        data-height="1080"
+        style="position: absolute; inset: 0;"
+      ></div>
+    </div>
+    <main class="sr-only">
+      <h1>Transformer: A Visual Introduction</h1>
+    </main>
+  </body>
+</html>

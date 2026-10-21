@@ -1,0 +1,26 @@
+{
+  "schema_version": "1.0",
+  "notes": "Example only. Copy to model-registry.json and replace with models you have actually verified. Capabilities are declared by the provider or measured by you; the preflight script does not test quota or availability.",
+  "models": [
+    {
+      "provider": "command-code",
+      "model": "deepseek/deepseek-v4.1-flash",
+      "capabilities": ["text", "code", "shell", "file_edit", "long_context"]
+    },
+    {
+      "provider": "command-code",
+      "model": "google/gemini-3.8-flash",
+      "capabilities": ["text", "image", "long_context"]
+    },
+    {
+      "provider": "google",
+      "model": "gemini-3.8-flash",
+      "capabilities": ["text", "image", "long_context"]
+    },
+    {
+      "provider": "single-session",
+      "model": "current-session",
+      "capabilities": ["text", "image", "video", "code", "shell", "file_edit", "long_context"]
+    }
+  ]
+}

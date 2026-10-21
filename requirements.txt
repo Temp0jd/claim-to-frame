@@ -1,0 +1,3 @@
+# explain-anything has no required runtime Python dependencies.
+# The scripts use the Python standard library. Optional: jsonschema for schema validation,
+# pytest for development. See requirements-dev.txt.

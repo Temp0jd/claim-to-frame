@@ -1,0 +1,54 @@
+{
+  "schema_version": "1.0",
+  "title": "{{TITLE}}",
+  "mode": "forward",
+  "artifact": "video",
+  "language": "{{LANGUAGE}}",
+  "renderer": "hyperframes",
+  "models": {
+    "analysis": {
+      "status": "unset",
+      "provider": null,
+      "model": null,
+      "capabilities": [],
+      "selected_by": "default",
+      "reason": ""
+    },
+    "storyboard": {
+      "status": "unset",
+      "provider": null,
+      "model": null,
+      "capabilities": [],
+      "selected_by": "default",
+      "reason": ""
+    },
+    "implementation": {
+      "status": "unset",
+      "provider": null,
+      "model": null,
+      "capabilities": [],
+      "selected_by": "default",
+      "reason": ""
+    },
+    "review": {
+      "status": "unset",
+      "provider": null,
+      "model": null,
+      "capabilities": [],
+      "selected_by": "default",
+      "reason": ""
+    }
+  },
+  "stages": {
+    "0_intake": "pending",
+    "1_sources": "pending",
+    "2_strategy": "pending",
+    "3_storyboard": "pending",
+    "4_visual_system": "pending",
+    "5_renderer": "pending",
+    "6_pilot": "pending",
+    "7_build": "pending",
+    "8_qa": "pending"
+  },
+  "model_history": []
+}

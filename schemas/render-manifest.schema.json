@@ -1,0 +1,123 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.com/schemas/render-manifest.schema.json",
+  "title": "Render Manifest",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "project",
+    "renderer",
+    "renderer_version",
+    "output",
+    "duration",
+    "width",
+    "height",
+    "fps",
+    "files",
+    "checks"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "1.0"
+    },
+    "project": {
+      "type": "string",
+      "minLength": 1
+    },
+    "renderer": {
+      "enum": [
+        "manim",
+        "hyperframes",
+        "remotion",
+        "canvas",
+        "static"
+      ]
+    },
+    "renderer_version": {
+      "type": "string",
+      "minLength": 1
+    },
+    "output": {
+      "type": "string",
+      "minLength": 1
+    },
+    "duration": {
+      "type": "number",
+      "exclusiveMinimum": 0
+    },
+    "width": {
+      "type": "integer",
+      "exclusiveMinimum": 0
+    },
+    "height": {
+      "type": "integer",
+      "exclusiveMinimum": 0
+    },
+    "fps": {
+      "type": "number",
+      "exclusiveMinimum": 0
+    },
+    "files": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string"
+      }
+    },
+    "checks": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "name",
+          "status"
+        ],
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "status": {
+            "enum": [
+              "pass",
+              "fail",
+              "warn"
+            ]
+          },
+          "evidence": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": true
+      }
+    },
+    "silent_source": {
+      "type": "string"
+    },
+    "promoted_from": {
+      "type": "string"
+    },
+    "frames": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "model": {
+      "type": "object",
+      "properties": {
+        "provider": {
+          "type": "string"
+        },
+        "model": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": true
+    },
+    "commands": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "string"
+      }
+    }
+  },
+  "additionalProperties": true
+}
