@@ -2,34 +2,38 @@
 
 # claim-to-frame
 
-**A skill for turning source material into diagrams, interactive pages, and short films that stay close to the evidence.**
+**An agent skill for turning source material into diagrams, interactive pages, and short explainer videos.**
 
 [English](README.md) · [简体中文](README.zh-CN.md)
 
 [![Validate](https://img.shields.io/github/actions/workflow/status/Temp0jd/claim-to-frame/validate.yml?branch=main&style=flat-square&label=validate)](https://github.com/Temp0jd/claim-to-frame/actions/workflows/validate.yml)
 [![License: MIT](https://img.shields.io/badge/license-MIT-2F6B5E?style=flat-square)](LICENSE)
 [![Version](https://img.shields.io/badge/version-0.2.0-A64B2E?style=flat-square)](CHANGELOG.md)
-[![Python 3.10+](https://img.shields.io/badge/python-3.10%2B-3776AB?style=flat-square&logo=python&logoColor=white)](requirements.txt)
 [![Agent Skill](https://img.shields.io/badge/agent-skill-8A2BE2?style=flat-square)](SKILL.md)
-[![Model-agnostic](https://img.shields.io/badge/models-swappable-4F6F5D?style=flat-square)](docs/model-selection.md)
 
 </div>
 
 ---
 
-Technical explanations often default to paragraphs, even when the idea needs a diagram, an interactive page, or motion.
+## Why I built this
 
-**claim-to-frame** is an agent skill for turning source documents, notes, or existing videos into explanation artifacts. It extracts claims into a ledger, chooses a medium, and builds a checked deliverable: for example, an interactive HTML model or a timed knowledge film with narration and subtitles.
+When I asked coding assistants to explain a complex system or paper, I kept getting the same thing: a lot of prose, very little evidence or structure. The answer sounded fluent, but I could not tell whether it was accurate or just confident. I built this skill so that every factual claim has a source anchor, and so the explanation uses the medium the idea actually needs instead of defaulting to text.
 
-## Quick start
+## What it is
 
-Install into your agent skills directory:
+claim-to-frame is an Agent Skill for coding agents such as Claude Code, Cursor, or Codex. Instead of writing a summary from memory, the skill takes an agent through a staged pipeline and produces a checked explanation: a structured answer, a diagram, an offline HTML explainer, or a timed Manim/HyperFrames video.
+
+The repository root contains `SKILL.md`, which agent runtimes load directly. The main handoffs have file contracts (`project.json`, `storyboard.json`, `render_manifest.json`, `qa_report.json`). Small Python scripts validate the JSON files and media.
+
+## Installation
+
+Install into your global agent skills directory:
 
 ```bash
 npx skills add Temp0jd/claim-to-frame -g -y
 ```
 
-Or install manually:
+Or install manually into your agent skills path:
 
 ```bash
 git clone https://github.com/Temp0jd/claim-to-frame.git
@@ -37,43 +41,32 @@ mkdir -p ~/.claude/skills
 cp -r claim-to-frame ~/.claude/skills/claim-to-frame
 ```
 
-Python 3.10+ covers the contracts and scripts. Video QA needs FFmpeg/FFprobe; HyperFrames needs Node 22+ and Chrome. Renderer-specific dependencies are in [`references/renderers.md`](references/renderers.md).
+**Requirements:** Python 3.10+ for contracts and scripts. Video QA needs FFmpeg/FFprobe. HyperFrames needs Node 22+ and Chrome.
 
-Scaffold a project and run the validation flow:
+## Quick start
 
 ```bash
-# 1. Initialize a project workspace
-python scripts/scaffold.py \
+# 1. Scaffold a project workspace
+python3 scripts/scaffold.py \
   --mode forward --artifact video --renderer hyperframes \
   --title "Why caches help" --language en --out ./explainers/caches
 
-# 2. Record provider and model selections in project.json, then prepare sources.md and storyboard.json
+# 2. Record providers and models in project.json, then prepare sources.md and storyboard.json
 
 # 3. Validate contracts and check model configuration
-python scripts/validate_project.py ./explainers/caches/project.json
-python scripts/validate_storyboard.py ./explainers/caches/storyboard.json
-python scripts/preflight_model.py ./explainers/caches/project.json --registry assets/model-registry.example.json
+python3 scripts/validate_project.py ./explainers/caches/project.json
+python3 scripts/validate_storyboard.py ./explainers/caches/storyboard.json
+python3 scripts/preflight_model.py ./explainers/caches/project.json --registry assets/model-registry.example.json
 
-# 4. Render a pilot scene before building the full video
+# 4. Render a single-scene pilot (silent; pass --require-audio for the final mux)
 scripts/render_hyperframes.sh ./explainers/caches/render/hyperframes ./explainers/caches/render/out.mp4
-python scripts/qa_video.py ./explainers/caches/render/out.mp4 --project caches \
+python3 scripts/qa_video.py ./explainers/caches/render/out.mp4 --project caches \
   --storyboard ./explainers/caches/storyboard.json
-# The pilot is silent. Add --require-audio after you mux narration.
 ```
-
-## What this is and what this is not
-
-| What this is | What this is not |
-| --- | --- |
-| An Agent Skill with a staged workflow | An npm library, CLI binary, or desktop app |
-| JSON contracts, stage gates, and validation scripts | A collection of unstructured prompts or copy-paste templates |
-| Model-agnostic: analysis, storyboard, code, and review roles are explicit | A wrapper around one model |
-| Source-grounded: every factual claim links to an anchor | A tool that generates claims without sources |
-| Renderer-agnostic: Manim, HyperFrames, Remotion, Canvas, or static HTML | A Manim-only exporter |
 
 ## How it works
 
-The workflow splits production into explicit stages. Major handoffs have a written contract; JSON files are validated against schemas. If a stage gate fails, execution pauses until the issue is fixed.
+The workflow has nine stages. Each stage has a gate, and the JSON contracts are checked by scripts. If a gate fails, the pipeline stops before spending more time or tokens.
 
 ```mermaid
 flowchart LR
@@ -87,41 +80,56 @@ flowchart LR
   H --> I[8 QA<br/>delivery]
 ```
 
-See [`docs/pipeline.md`](docs/pipeline.md) for detailed entrance and exit criteria at each stage.
+Detailed entrance and exit criteria are documented in [`docs/pipeline.md`](docs/pipeline.md).
 
 ## Modes and artifacts
 
-### Modes
-
 The skill operates in three modes:
-
-- `forward`: explain a concept, paper, system, policy, or codebase from scratch.
-- `reverse`: analyze an existing video into evidence-backed shots and structured storyboard data, then rebuild or inspect it.
-- `hybrid`: borrow the pacing and visual structure of a reference explainer while supplying new claims and assets.
+- `forward`: explain a concept, paper, architecture, or policy from scratch.
+- `reverse`: analyze an existing video into evidence-backed shots and structured storyboard data to inspect or rebuild it.
+- `hybrid`: borrow the narrative pacing and visual structure of a reference explainer while supplying new claims and assets.
 
 ### The artifact ladder
 
-Match the deliverable to the reader's problem. Pick the lowest sufficient rung:
+Pick the lowest sufficient rung that satisfies the reader’s need:
 
 | Artifact | Rung | Best when |
 | --- | --- | --- |
 | `answer` | 0 | Small, familiar, factual questions |
-| `ste` | 1 | Procedural instructions, compliance, terminology, and audits |
-| `diagram` | 2 | Structure, hierarchy, sequence flows, and system state |
-| `html` | 3 | Mechanisms with state machines, parameters, or interactive layers |
-| `video` | 4 | Derivations, dynamic systems, and intuition over time |
-| `knowledge-film` | 4 | 2–5 minute visual-first explainers (16:9, subtitle-driven, rhythm-matched) |
+| `ste` | 1 | Standardized procedures, compliance rules, terminology, and audits |
+| `diagram` | 2 | Static system architectures, hierarchies, sequence flows, and state machines |
+| `html` | 3 | Dynamic mechanisms with interactive variables, sliders, or state exploration |
+| `video` | 4 | Mathematical derivations, dynamic systems, and intuition over time |
+| `knowledge-film` | 4 | 2–5 minute visual-first explainers (16:9 format, subtitle-led, tight rhythm) |
 
-## Model-agnostic role selection
+The scaffold creates the first set of files:
 
-The skill separates workflow logic from model choices. At intake, the agent prompts for provider and model assignments across four operational roles:
+```text
+explainers/caches/
+├── README.md
+├── project.json
+├── sources.md
+├── storyboard.md
+├── storyboard.json
+├── qa/
+└── render/
+    └── hyperframes/
+        ├── index.html
+        └── compositions/scene.html
+```
 
-- `analysis`: parses references, transcripts, data tables, and keyframes.
-- `storyboard`: writes narrative arcs, shot descriptions, and on-screen actions.
-- `implementation`: generates renderer code (HTML/CSS/GSAP, Python Manim, React Remotion) and runs builds.
-- `review`: audits factual fidelity, visual legibility, subtitle alignment, and contrast.
+`render_manifest.json` and `qa_report.json` are written after rendering and QA.
 
-All choices are saved directly in `project.json`:
+## Swappable model roles
+
+The workflow separates process logic from model choice. At intake, the agent prompts for provider and model assignments across four operational roles:
+
+- `analysis`: extracts claims, formulas, and transcripts from source documents or video.
+- `storyboard`: writes the narrative arc, visual metaphors, and shot actions.
+- `implementation`: generates renderer code (GSAP, Manim, Canvas) and runs builds.
+- `review`: audits factual fidelity, visual clarity, contrast, and timing.
+
+Model choices are explicitly saved in `project.json`:
 
 ```json
 {
@@ -134,25 +142,25 @@ All choices are saved directly in `project.json`:
 }
 ```
 
-A model is never inferred from a provider name; provider and model are recorded separately. A provider or model is never swapped without logging to `model_history`. The script `scripts/preflight_model.py` validates that selected models meet capability requirements before rendering begins. See [`docs/model-selection.md`](docs/model-selection.md).
+No model is inferred from a provider name; both are recorded. Mid-project model changes must be logged to `model_history` rather than swapped silently. Before rendering, `scripts/preflight_model.py` checks declared capabilities. See [`docs/model-selection.md`](docs/model-selection.md).
 
 ## Renderers
 
-Renderers are swappable backends:
+Renderers are swappable backends that share `style_tokens` in `storyboard.json`:
 
 | Renderer | Best suited for |
 | --- | --- |
-| `hyperframes` | HTML/CSS/GSAP, typography, UI, charts, code, and 2D layouts |
-| `manim` | Equations, axes, geometry, LaTeX, and 3D math |
-| `remotion` | Existing React/Remotion projects |
+| `hyperframes` | HTML/CSS/GSAP, typography, UI widgets, code blocks, and 2D layouts |
+| `manim` | Mathematical formulas, coordinate systems, geometry, and 3D scenes |
+| `remotion` | React-based animations and video compositions |
 | `canvas` | Custom frame-by-frame 2D animation |
-| `static` | SVG/PNG diagrams, posters, and flowcharts |
+| `static` | Standalone SVG/PNG diagrams, schematics, and flowcharts |
 
-You can mix renderers: Manim for the mathematical core, HyperFrames for title, chapter, and end cards, with shared style tokens. See [`references/renderers.md`](references/renderers.md).
+Renderers can be mixed: for example, Manim for mathematical derivations and HyperFrames for title and recap cards. See [`references/renderers.md`](references/renderers.md).
 
 ## Worked example: Transformer explainer
 
-The repository includes a 107.9-second Chinese Transformer explainer, built with HyperFrames in a light academic style.
+The repository includes a 107.9-second Chinese explainer on Transformer and self-attention, rendered at 1920×1080 and 30 fps with HyperFrames, Chinese narration, and soft subtitles.
 
 <p align="center">
   <a href="examples/transformer/">
@@ -165,75 +173,72 @@ The repository includes a 107.9-second Chinese Transformer explainer, built with
 </p>
 
 The example demonstrates:
-- Grounded claim citations linking script statements to Vaswani et al. (2017) in `sources.md`.
-- Monotonic shot timing and on-screen action specifications in `storyboard.json`.
+- Grounded citations in `sources.md` linking claims directly to Vaswani et al. (2017).
+- Monotonic shot timings and visual action specifications in `storyboard.json`.
 - Programmatic HTML/CSS/GSAP animation code in `compositions/scene.html`.
-- QA results in `qa_report.json` for contrast, layout, runtime, decode, and captions.
+- QA results in `qa_report.json` for contrast (109/109 text checks pass WCAG AA), layout, runtime, decode, and captions.
 
-## Quality gates and validation
+## Quality checks and scripts
 
-The main artifacts are checked by deterministic scripts and gates:
+Deterministic scripts verify contracts and media files across stages:
 
-| Quality gate | Scope and verification |
-| --- | --- |
-| Source ledger | Every number, definition, formula, and causal claim has a source anchor. |
-| Model preflight | `scripts/preflight_model.py` checks provider, model, and required capabilities in `project.json`. |
-| Storyboard contract | `scripts/validate_storyboard.py` checks monotonic scene time offsets and required visual actions. |
-| Audio retiming | `scripts/retime_storyboard.py` aligns storyboard scene boundaries with actual TTS narration durations. |
-| Video QA | `scripts/qa_video.py` inspects stream codecs, loudness, black frames, decode integrity, and subtitle tracks. |
-| Release scan | `scripts/check_release.py` checks for placeholders, absolute paths, secrets, invalid JSON, and missing files. |
+- `scripts/validate_project.py`: checks `project.json` against its JSON Schema and validates stage statuses.
+- `scripts/validate_storyboard.py`: verifies monotonic scene timings and required visual actions in `storyboard.json`.
+- `scripts/preflight_model.py`: verifies provider, model, and capabilities (vision, shell, code) in `project.json`.
+- `scripts/qa_video.py`: inspects rendered MP4 files for codecs, decode errors, black frames, loudness, and subtitle timing.
+- `scripts/retime_storyboard.py`: reconciles storyboard scene durations with measured TTS audio narration lengths.
+- `scripts/check_artifact.py`: checks standalone HTML explainers for offline portability and accessibility.
+- `scripts/ste_lint.py`: flags sentence length and vocabulary issues for STE-lite text.
+- `scripts/check_release.py`: scans for unfinished placeholders, leaked secrets, invalid JSON, and missing files.
 
-Run the full validation suite locally:
+Run the local checks:
 
 ```bash
-python -m pytest
-python scripts/validate_examples.py
-python scripts/check_release.py --strict
+python3 scripts/validate_examples.py
+python3 scripts/check_release.py --strict
 ```
 
-## Repository map
+Pass criteria across all media types are detailed in [`docs/quality-gates.md`](docs/quality-gates.md).
+
+## What this is not and current limits
+
+- **Early version (v0.2.0)**: file schemas and command flags are functional but expect changes.
+- **Not a hosted SaaS or desktop app**: this is an agent skill for local agent sessions and command-line execution.
+- **Not an automated fact-checker**: the pipeline ensures claims trace to anchors in `sources.md`, but it cannot verify whether the source itself is correct.
+- **Human review is still required**: models can misjudge visual balance and timing; the pilot gate is designed for a human to inspect frames before full builds.
+
+## Repository layout
 
 <details>
-<summary>View directory structure</summary>
+<summary>Click to view repository structure</summary>
 
 ```text
 claim-to-frame/
-├── SKILL.md                  # Skill instructions loaded by agent runtimes
+├── SKILL.md                  # Agent skill instructions loaded by runtimes
 ├── README.md                 # English documentation
 ├── README.zh-CN.md           # Chinese documentation
-├── docs/                     # Pipeline stages, model selection rules, QA guides
-├── references/               # Guides for STE, diagrams, HTML widgets, and video renderers
-├── assets/                   # Templates, style tokens, and example model registries
-├── schemas/                  # JSON Schemas for project, storyboard, manifest, and QA files
+├── docs/                     # Pipeline stages, model selection, quality gates
+├── references/               # Guides for STE, diagrams, HTML, and renderers
+├── assets/                   # Templates, style token presets, model registry
+├── schemas/                  # JSON Schemas for project, storyboard, manifest, and QA
 ├── scripts/                  # Scaffolding, validators, preflight, QA, and release tools
 ├── tests/                    # Automated pytest test cases
 ├── examples/transformer/     # Complete HyperFrames worked explainer
-└── .github/workflows/        # Continuous integration workflows
+└── .github/workflows/        # CI automation workflows
 ```
 
 </details>
 
-## Design principles
-
-1. **Format serves understanding.** Do not build a video when an annotated diagram answers the question.
-2. **Anchors before text.** Every factual claim must link to a verified source before drafting script lines.
-3. **Image before script.** For video, identify the physical or spatial subject before writing narration.
-4. **Show the verb.** If the script states that data is filtered, the animation must visibly filter elements on screen.
-5. **One visual world.** Maintain consistent palettes, coordinate scales, and visual metaphors across scenes.
-6. **Pilot before scaling.** Render a 30-second pilot sequence to validate layout and timing before full builds.
-7. **Swappable models, permanent contracts.** Model choices are tracked in `project.json` and never swapped implicitly.
-8. **Correctness over spectacle.** An unembellished, factually accurate paragraph is preferable to an attractive animation that misrepresents how a mechanism works.
-
 ## Attribution
 
-This project builds upon the author's original `explain-anything` framework and adopts concepts from related open-source projects:
+This project was created by Tempo, building upon earlier `explain-anything` workflows and drawing inspiration from:
 
-- **vibe-knowledge-film** (MIT) — Visual-first knowledge film conventions, shot table structure, and frame review methodology. https://github.com/HeyChengC/vibe-knowledge-film
-- **HyperFrames** (Apache-2.0) — HTML/CSS/GSAP composition contract and render CLI. https://github.com/heygen-com/hyperframes
-- **Manim Community** (MIT) — Mathematical animation engine. https://www.manim.community/
+- **vibe-knowledge-film** (MIT) — visual-first video structure, shot tables, and pilot review conventions.
+- **HyperFrames** (Apache-2.0) — HTML/CSS/GSAP composition contract and rendering workflow.
+- **Manim Community** (MIT) — programmatic mathematical animation engine.
 
-See [`NOTICE.md`](NOTICE.md) for license notices and attribution details.
+See [`NOTICE.md`](NOTICE.md) for licensing details and component boundaries.
 
 ## License
 
-MIT. See [`LICENSE`](LICENSE).
+MIT License. See [`LICENSE`](LICENSE) for details.
