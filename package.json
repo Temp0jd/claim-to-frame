@@ -1,0 +1,49 @@
+{
+  "name": "claim-to-frame",
+  "version": "0.2.0",
+  "description": "An agent skill for turning source material into checked diagrams, HTML explainers, and short Manim/HyperFrames videos.",
+  "license": "MIT",
+  "author": "Temp0jd",
+  "homepage": "https://github.com/Temp0jd/claim-to-frame#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Temp0jd/claim-to-frame.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Temp0jd/claim-to-frame/issues"
+  },
+  "keywords": [
+    "agent-skill",
+    "agent-skills",
+    "skills",
+    "claude-code",
+    "pi",
+    "manim",
+    "hyperframes",
+    "explainer",
+    "explainer-video",
+    "ste100",
+    "knowledge-film"
+  ],
+  "files": [
+    "SKILL.md",
+    "NOTICE.md",
+    "CHANGELOG.md",
+    "requirements.txt",
+    "README.zh-CN.md",
+    "references",
+    "docs",
+    "schemas",
+    "scripts",
+    "assets",
+    "examples",
+    "!examples/transformer/render/",
+    "!examples/transformer/audio/*.mp3",
+    "!examples/transformer/thumbnail.png",
+    "!**/__pycache__/",
+    "!**/*.pyc"
+  ],
+  "publishConfig": {
+    "access": "public"
+  }
+}
