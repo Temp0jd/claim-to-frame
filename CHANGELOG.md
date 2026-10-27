@@ -10,6 +10,7 @@
 - Extended `qa-report`, `render-manifest`, and `project` schemas to document model/video/QA fields.
 - Added tests and CI for preflight, video QA, retiming, and schema coverage.
 - Replaced placeholder provider/model records with an honest `single-session` example record.
+- Published to npm as `@tempo1221/claim-to-frame` (80 files, 563 KB tarball).
 
 ## 0.1.0 — 2026-10-21
 

@@ -1,5 +1,5 @@
 {
-  "name": "claim-to-frame",
+  "name": "@tempo1221/claim-to-frame",
   "version": "0.2.0",
   "description": "An agent skill for turning source material into checked diagrams, HTML explainers, and short Manim/HyperFrames videos.",
   "license": "MIT",

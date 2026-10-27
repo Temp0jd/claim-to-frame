@@ -9,6 +9,7 @@
 [![Validate](https://img.shields.io/github/actions/workflow/status/Temp0jd/claim-to-frame/validate.yml?branch=main&style=flat-square&label=validate)](https://github.com/Temp0jd/claim-to-frame/actions/workflows/validate.yml)
 [![License: MIT](https://img.shields.io/badge/license-MIT-2F6B5E?style=flat-square)](LICENSE)
 [![Version](https://img.shields.io/badge/version-0.2.0-A64B2E?style=flat-square)](CHANGELOG.md)
+[![npm](https://img.shields.io/npm/v/@tempo1221/claim-to-frame?style=flat-square&color=CB3837&label=npm)](https://www.npmjs.com/package/@tempo1221/claim-to-frame)
 [![Agent Skill](https://img.shields.io/badge/agent-skill-8A2BE2?style=flat-square)](SKILL.md)
 
 </div>
@@ -27,10 +28,22 @@ claim-to-frame 是一个面向 Claude Code、Cursor、Codex 等智能体运行�
 
 ## 安装方式
 
-全局安装到智能体的技能目录：
+从 GitHub 安装为智能体技能：
 
 ```bash
 npx skills add Temp0jd/claim-to-frame -g -y
+```
+
+或从已发布的 npm tarball 安装为技能：
+
+```bash
+npx skills add https://registry.npmjs.org/@tempo1221/claim-to-frame/-/claim-to-frame-0.2.0.tgz -g -y
+```
+
+安装 npm 包本身（脚本、schema、参考资料和示例）：
+
+```bash
+npm install @tempo1221/claim-to-frame
 ```
 
 或手动克隆至本地技能目录：
@@ -40,6 +53,7 @@ git clone https://github.com/Temp0jd/claim-to-frame.git
 mkdir -p ~/.claude/skills
 cp -r claim-to-frame ~/.claude/skills/claim-to-frame
 ```
+
 
 **环境要求：** 契约校验与脚本运行需要 Python 3.10+；视频 QA 检查需要 FFmpeg/FFprobe；使用 HyperFrames 渲染需要 Node 22+ 与 Chrome / Chromium。
 

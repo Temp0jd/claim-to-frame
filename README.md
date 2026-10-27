@@ -9,6 +9,7 @@
 [![Validate](https://img.shields.io/github/actions/workflow/status/Temp0jd/claim-to-frame/validate.yml?branch=main&style=flat-square&label=validate)](https://github.com/Temp0jd/claim-to-frame/actions/workflows/validate.yml)
 [![License: MIT](https://img.shields.io/badge/license-MIT-2F6B5E?style=flat-square)](LICENSE)
 [![Version](https://img.shields.io/badge/version-0.2.0-A64B2E?style=flat-square)](CHANGELOG.md)
+[![npm](https://img.shields.io/npm/v/@tempo1221/claim-to-frame?style=flat-square&color=CB3837&label=npm)](https://www.npmjs.com/package/@tempo1221/claim-to-frame)
 [![Agent Skill](https://img.shields.io/badge/agent-skill-8A2BE2?style=flat-square)](SKILL.md)
 
 </div>
@@ -27,19 +28,32 @@ The repository root contains `SKILL.md`, which agent runtimes load directly. The
 
 ## Installation
 
-Install into your global agent skills directory:
+Install as an agent skill from GitHub:
 
 ```bash
 npx skills add Temp0jd/claim-to-frame -g -y
 ```
 
-Or install manually into your agent skills path:
+Or install as an agent skill from the published npm tarball:
+
+```bash
+npx skills add https://registry.npmjs.org/@tempo1221/claim-to-frame/-/claim-to-frame-0.2.0.tgz -g -y
+```
+
+Install the npm package itself (scripts, schemas, references, and examples):
+
+```bash
+npm install @tempo1221/claim-to-frame
+```
+
+Or clone the repository and copy it into your agent skills path:
 
 ```bash
 git clone https://github.com/Temp0jd/claim-to-frame.git
 mkdir -p ~/.claude/skills
 cp -r claim-to-frame ~/.claude/skills/claim-to-frame
 ```
+
 
 **Requirements:** Python 3.10+ for contracts and scripts. Video QA needs FFmpeg/FFprobe. HyperFrames needs Node 22+ and Chrome.
 

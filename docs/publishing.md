@@ -1,6 +1,7 @@
-# Publishing to GitHub
+# Publishing the skill
 
-This repository is a standalone skill. You can upload it as your own project.
+This repository is a standalone skill. It is published on GitHub and on npm as
+`@tempo1221/claim-to-frame`.
 
 ## 1. Replace the placeholders
 
@@ -76,3 +77,20 @@ Keep the folder name `claim-to-frame` and the root `SKILL.md`.
 - [ ] No secrets, API keys, private footage, or personal data.
 - [ ] Third-party assets credited and licensed.
 - [ ] Version and CHANGELOG updated.
+- [ ] npm tarball checked with `npm pack --dry-run`.
+
+## 7. Publish to npm
+
+The package is published as `@tempo1221/claim-to-frame`.
+
+```bash
+npm pack --dry-run
+npm publish --access public
+```
+
+Scoped packages need `--access public` for a public release. If 2FA is enabled,
+npm opens a browser-based security-key challenge. Verify after publishing:
+
+```bash
+npm view @tempo1221/claim-to-frame version dist.tarball
+```
